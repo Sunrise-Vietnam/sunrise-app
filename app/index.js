@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Meteor, { createContainer } from 'react-native-meteor';
 
-import Index from './layouts/Index.js';
+import Index from './layouts/Index.jsx';
 import Loading from './components/Loading';
 import config from './config';
 
