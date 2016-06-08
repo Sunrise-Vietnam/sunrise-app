@@ -1,7 +1,6 @@
 import React from 'react';
-/*import { StyleSheet, Text, View } from 'react-native';
-import { Style } from '../../styles';
-import Button from '../../components/Button';*/
+import { StyleSheet, Text, View } from 'react-native';
+import { COLORS } from '../../styles/index.js';
 
 const styles = StyleSheet.create({
     container: {
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
         fontWeight: '600'
     }
 });
-
+let src = '';
 const Countries = (props) => {
     return (
         <View style={styles.container}>
@@ -35,21 +34,21 @@ const Countries = (props) => {
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Anh</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Mỹ</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Úc</Text>
                 </TouchableOpacity>
@@ -58,21 +57,21 @@ const Countries = (props) => {
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Canada</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Thuỵ Sĩ</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Phần Lan</Text>
                 </TouchableOpacity>
@@ -81,21 +80,21 @@ const Countries = (props) => {
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Hà Lan</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>New Zealand</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Singapore</Text>
                 </TouchableOpacity>
@@ -104,21 +103,21 @@ const Countries = (props) => {
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Hàn Quốc</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Nhật Bản</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Malaysia</Text>
                 </TouchableOpacity>
@@ -127,14 +126,14 @@ const Countries = (props) => {
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Trung Quốc</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
                     <Image
                         style={styles.image}
-                        source={}
+                        source={src}
                         />
                     <Text style={styles.lbl}>Thái Lan</Text>
                 </TouchableOpacity>

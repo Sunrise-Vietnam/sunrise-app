@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
-import { Home } from '../routes/Home';
 import ExNavigator from '@exponent/react-native-navigator';
+import {  Icon as HomeIcon } from '../routes/Home';
 import Routes from '../routes';
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ class DefaultLayout extends React.Component {
 		};
 	}
 
-	renderTabItem(title, initialRoute) {
+	renderTabItem(title, initialRoute, Icon) {
 		const { selectedTab } = this.state;
 		const sceneStyle = [];
 		if (initialRoute.showNavigationBar !== false) {
@@ -35,13 +35,20 @@ class DefaultLayout extends React.Component {
 			<TabNavigator.Item
 				selected={selectedTab === title}
 				title={title}
+				renderIcon={() => <Image style={styles.icon} source={Icon} />}
+				renderSelectedIcon={() => (
+          <Image
+            style={[styles.icon, styles.iconSelected]}
+            source={Icon}
+          />
+        )}
+				onPress={() => this.setState({ selectedTab: title })}
 			>
 				<ExNavigator
 					initialRoute={initialRoute}
 					style={{ flex: 1 }}
 					sceneStyle={sceneStyle}
-					showNavigationBar={initialRoute.showNavigationBar}
-				/>
+					showNavigationBar={initialRoute.showNavigationBar}/>
 			</TabNavigator.Item>
 		);
 	}

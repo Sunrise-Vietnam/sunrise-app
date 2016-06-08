@@ -1,16 +1,14 @@
 import React from 'react';
 import Home from './Home';
-/*import About from './About';*/
 import Countries from './Countries';
 import CountryInfo from './CountryInfo';
 import SchoolInfo from './SchoolInfo';
 import StudyAbroadInfo from './StudyAbroadInfo';
-/*import Search from './Search';*/
 
 const Routes = {
     getHomeRoute() {
         return {
-            renderScene(navigator) {
+	        renderScene(navigator) {
                 return <Home navigator={navigator} />;
             },
 

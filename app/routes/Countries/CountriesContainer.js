@@ -1,5 +1,5 @@
 import React from 'react';
-import Countries from './Countries';
+import Countries from './Countries.js';
 import Routes from '../';
 
 const onCountryPress = (navigator) => {
