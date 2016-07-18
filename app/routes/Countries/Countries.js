@@ -1,149 +1,95 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, ListView, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { COLORS } from '../../styles/index.js';
+
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+
+import immutable from 'immutable'
+import ImmutableDataSource from 'react-native-immutable-listview-datasource'
+
+let countriesData = immutable.fromJS([
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-anh.png","lbl":"Anh"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-my.png","lbl":"Mỹ"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-australia.png","lbl":"Úc"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-canada.png","lbl":"Canada"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-thuy-si.png","lbl":"Thụy Sỹ"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-phan-lan.png","lbl":"Phần Lan"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-ha-lan.png","lbl":"Hà Lan"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-newzealnd.png","lbl":"New Zealand"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-singapore.png","lbl":"Singapore"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-han-quoc.png","lbl":"Hàn Quốc"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-nhat-ban.png","lbl":"Nhật Bản"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-malaysia.png","lbl":"Malaysia"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-trung-quoc.png","lbl":"Trung Quốc"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-trung-quoc.png","lbl":"Phillipines"},
+    {"img":"http://photo.sunrisevietnam.com///2015/7/22/anh-thai-lan.png","lbl":"Thái Lan"},
+]);
+
+let width = Dimensions.get('window').width;
+
+class Countries extends Component {
+    constructor(){
+        super()
+        let ds = new ImmutableDataSource()
+        this.state = {ds : ds.cloneWithRows(countriesData)}
+        this._renderRow = this._renderRow.bind(this)
+    }
+    _renderRow(rowData){
+        return <View style={styles.row}>
+            <TouchableOpacity onPress={()=>{this.props.onCountryInfoPress(rowData.get('lbl'))}}>
+                <Image style={styles.image} source={{uri: rowData.get('img')}} />
+            </TouchableOpacity>
+            <Text style={styles.txtLbl}>{rowData.get('lbl')}</Text>
+        </View>
+    }
+    render(){
+        return (
+            <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
+                <ListView contentContainerStyle={styles.listViewStyle}
+                          dataSource={this.state.ds}
+                          renderRow={this._renderRow}
+                />
+            </ParallaxScrollView>
+        );
+    }
+}
+
+Countries.propTypes = {
+    onCountryInfoPress: React.PropTypes.func,
+};
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        borderTopColor: '#FF7200',
+        borderTopWidth: 50,
         backgroundColor: COLORS.clrWhite,
     },
-    row: {
+    listViewStyle: {
         flex: 1,
-    },
-    country: {
-        flex: 1,
-    },
-    image: {
-        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'center',
     },
-    lbl: {
-        fontSize: 14,
+    row: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: (window.width/3),
+        width: (width/2),
+        marginBottom: 10,
+        //borderWidth: 1,
+        //borderColor: 'black',
+    },
+    image: {
+        width: (width/2)-40,
+        height: (width/2)-40,
+        //justifyContent: 'center',
+        resizeMode: 'contain',
+    },
+    txtLbl: {
+        fontSize: 13,
         color: COLORS.clrBlack,
-        textAlign: 'center',
         fontWeight: '600'
     }
 });
-let src = '';
-const Countries = (props) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.row}>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Anh</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Mỹ</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Úc</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.row}>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Canada</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Thuỵ Sĩ</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Phần Lan</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.row}>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Hà Lan</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>New Zealand</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Singapore</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.row}>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Hàn Quốc</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Nhật Bản</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Malaysia</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.row}>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Trung Quốc</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.country} onPress={props.onCountryPress}>
-                    <Image
-                        style={styles.image}
-                        source={src}
-                        />
-                    <Text style={styles.lbl}>Thái Lan</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    );
-};
-
-Countries.propTypes = {
-    onCountryPress: React.PropTypes.func,
-};
 
 export default Countries;

@@ -1,42 +1,67 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { COLORS } from '../../styles';
-import Button from '../../components/Button';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textOrange: {
-        color: COLORS.clrOrange
-    },
-    textGreen: {
-        color: COLORS.clrGreen
-    }
-});
+import React, { Component } from 'react';
+import { StyleSheet, Image, Text, TouchableOpacity  } from 'react-native';
+import { COLORS } from '../../styles/index';
 
 const Home = (props) => {
     return (
-        <View style={styles.container}>
-            <Image
-
-            />
-            <Button
-                text="TÌM HIỂU THÔNG TIN DU HỌC"
-                style={styles.textOrange}
-            />
-            <Button
-                text="THEO DÕI HỌC SINH DU HỌC"
-                style={styles.textGreen}
-            />
-        </View>
+        <Image source={require('./home.png')} style={styles.container}>
+            <Image style={styles.img} source={require('./Logo.png')}/>
+            <Text style={styles.txtTitle}>DU HỌC SUNRISE VIETNAM</Text>
+            <TouchableOpacity style={styles.button} onPress={props.onStudyAbroadInfoPress}>
+                <Text style={[styles.txtButton, styles.txtOrange]}>
+                    TÌM HIỂU THÔNG TIN DU HỌC
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={props.onFollowStudentPress}>
+                <Text style={[styles.txtButton, styles.txtGreen]}>
+                    THEO DÕI HỌC SINH DU HỌC
+                </Text>
+            </TouchableOpacity>
+        </Image>
     );
 };
 
 Home.propTypes = {
-    onCountryPress: React.PropTypes.func,
+    onStudyAbroadInfoPress: React.PropTypes.func,
+    onFollowStudentPress: React.PropTypes.func,
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: null,
+        height: null,
+    },
+    img: {
+        marginBottom: 45
+    },
+    txtTitle: {
+        color: COLORS.clrWhite,
+        fontWeight: '700',
+        fontSize: 25,
+        bottom: 5
+    },
+    button: {
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        width: 300,
+        backgroundColor: COLORS.clrWhite,
+        margin: 10,
+        borderRadius: 6,
+        alignItems: 'center',
+    },
+    txtButton: {
+        fontWeight: '700',
+        fontSize: 18
+    },
+    txtOrange: {
+        color: COLORS.clrOrange,
+    },
+    txtGreen: {
+        color: COLORS.clrGreen,
+    },
+});
 
 export default Home;

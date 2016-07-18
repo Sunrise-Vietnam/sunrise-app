@@ -9,7 +9,7 @@ Meteor.connect(config.METEOR_URL);
 
 const SRVNApp = (props) => {
 	const { status} = props;
-	console.log(status);
+	console.log(props);
 	if (status.connected === false) {
 		return <Loading />;
 	} else {

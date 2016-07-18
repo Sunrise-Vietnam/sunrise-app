@@ -2,8 +2,9 @@ import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import ExNavigator from '@exponent/react-native-navigator';
-import {  Icon as HomeIcon } from '../routes/Home';
+import { Icon as HomeIcon } from '../routes/Home';
 import Routes from '../routes';
+import CustomNavBar from '../components/CustomNavBar';
 
 const styles = StyleSheet.create({
 	icon: {
@@ -28,9 +29,8 @@ class DefaultLayout extends React.Component {
 		const { selectedTab } = this.state;
 		const sceneStyle = [];
 		if (initialRoute.showNavigationBar !== false) {
-			sceneStyle.push({ paddingTop: 64 });
+			sceneStyle.push({paddingTop: 50, marginBottom: 50});
 		}
-
 		return (
 			<TabNavigator.Item
 				selected={selectedTab === title}
@@ -43,20 +43,21 @@ class DefaultLayout extends React.Component {
           />
         )}
 				onPress={() => this.setState({ selectedTab: title })}
-			>
+				>
 				<ExNavigator
 					initialRoute={initialRoute}
 					style={{ flex: 1 }}
 					sceneStyle={sceneStyle}
-					showNavigationBar={initialRoute.showNavigationBar}/>
+					showNavigationBar={initialRoute.showNavigationBar}
+					/>
 			</TabNavigator.Item>
 		);
 	}
 
 	render() {
 		return (
-			<TabNavigator>
-				{this.renderTabItem('Home', Routes.getHomeRoute(), HomeIcon)}
+			<TabNavigator style={{height: 0}}>
+				{this.renderTabItem('Home', Routes.getHomeRoute())}
 			</TabNavigator>
 		);
 	}
