@@ -5,52 +5,62 @@ import { COLORS } from '../../styles/index';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import DatePicker from 'react-native-datepicker';
 import CheckBox from 'react-native-checkbox';
-//import _ from 'lodash'
-
+import Meteor, { connectMeteor } from 'react-native-meteor';
+import _ from 'lodash'
 class SearchForCourses extends Component {
     constructor(props){
         super(props);
         let form = {
-            fullName : null,
-            bod : null,
-            className : null,
-            schoolName : null,
-            tel : null,
+            hovaten : null,
+            ngaysinh : null,
+            hoclop : null,
+            hoctruong : null,
+            sodienthoai : null,
             email : null,
-            score: null,
+            diem_ielts: null,
+            //note: null,
             ielts: false,
             toefl: false,
             sat: false,
-            parentsName: null,
-            parentsTel: null,
-            parentsEmail: null,
-
-        }
+            hoten_me: null,
+            sodienthoai_me: null,
+            email_me: null,
+            source: '"zKip6ZGQ4oeAvozAX"'
+        };
         this.state = {
             date: new Date(),
             form : form
-        }
-        this.setFormFieldValue = this.setFormFieldValue.bind(this)
+        };
+        this.setFormFieldValue = this.setFormFieldValue.bind(this);
         this.RegisterForm = this.RegisterForm.bind(this)
     }
     setFormFieldValue(fieldName, value){
-        let form = this.state.form
-        form = Object.assign(form, {[fieldName] : value})
+        let form = this.state.form;
+        form = Object.assign(form, {[fieldName] : value});
         this.setState({form : form})
     }
     RegisterForm(){
-        console.info(this.state.form)
+        let form = this.state.form
+        let note = 'Nhu cầu học : '
+        if(form.ielts) note += 'ielts,'
+        if(form.toefl) note += 'toefl,'
+        if(form.sat) note += 'sat'
+        if(note !== 'Nhu cầu học : '){
+            form = _.extend(_.omit(form,['ielts','toefl','sat']), { note : note})
+        }
+        Meteor.call('insertRegister', form, (e, r) => {
+            console.info(e, r)
+        })
     }
     render() {
         return (
-            <ParallaxScrollView style={{ flex: 1, overflow: 'hidden', borderTopColor: '#FF7200', borderTopWidth: 50, }}
-                                parallaxHeaderHeight={ 0 }>
+            <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
                 <View>
-                    <Image style={{flex: 1, width: window.width, height: 100, marginBottom: 20, resizeMode: 'stretch'}} source={require('./search-for-courses.png')}/>
+                    <Image style={styles.headerImg} source={require('./search-for-courses.png')}/>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Họ và tên</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.fullName} onChangeText={(e)=> this.setFormFieldValue('fullName', e)}
+                            style={styles.bgInput} value={this.state.form.hovaten} onChangeText={(e)=> this.setFormFieldValue('hovaten', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
@@ -60,31 +70,33 @@ class SearchForCourses extends Component {
                             style={styles.bgDate}
                             date={this.state.date}
                             mode="date"
-                            format="DD - MM - YYYY"
+                            format="DD-MM-YYYY"
                             minDate="01-01-1940"
                             maxDate="31-12-2015"
                             confirmBtnText="Xong"
                             cancelBtnText="Huỷ"
-                            onDateChange={(date) => {this.setState({date: date});}}
+                            onDateChange={(date) => {
+                                this.setFormFieldValue('ngaysinh', date);
+                                this.setState({date: date})}}
                         />
                         </View>
                     </View>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Lớp</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.className} onChangeText={(e)=> this.setFormFieldValue('className', e)}
+                            style={styles.bgInput} value={this.state.form.hoclop} onChangeText={(e)=> this.setFormFieldValue('hoclop', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Trường</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.schoolName} onChangeText={(e)=> this.setFormFieldValue('schoolName', e)}
+                            style={styles.bgInput} value={this.state.form.hoctruong} onChangeText={(e)=> this.setFormFieldValue('hoctruong', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Số điện thoại</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.tel} onChangeText={(e)=> this.setFormFieldValue('tel', e)}
+                            style={styles.bgInput} value={this.state.form.sodienthoai} onChangeText={(e)=> this.setFormFieldValue('sodienthoai', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
@@ -96,7 +108,7 @@ class SearchForCourses extends Component {
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Điểm IELTS/TOEFL</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.score} onChangeText={(e)=> this.setFormFieldValue('score', e)}
+                            style={styles.bgInput} value={this.state.form.diem_ielts} onChangeText={(e)=> this.setFormFieldValue('diem_ielts', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
@@ -134,19 +146,19 @@ class SearchForCourses extends Component {
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Phụ huynh</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.parentsName} onChangeText={(e)=> this.setFormFieldValue('parentsName', e)}
+                            style={styles.bgInput} value={this.state.form.hoten_me} onChangeText={(e)=> this.setFormFieldValue('hoten_me', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Số điện thoại</Text>
                         <TextInput
-                            style={styles.bgInput} value={this.state.form.parentsTel} onChangeText={(e)=> this.setFormFieldValue('parentsTel', e)}
+                            style={styles.bgInput} value={this.state.form.sodienthoai_me} onChangeText={(e)=> this.setFormFieldValue('sodienthoai_me', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Email</Text>
                         <TextInput
-                            style={styles.bgInput}  value={this.state.form.parentsEmail} onChangeText={(e)=> this.setFormFieldValue('parentsEmail', e)}
+                            style={styles.bgInput}  value={this.state.form.email_me} onChangeText={(e)=> this.setFormFieldValue('email_me', e)}
                             />
                     </View>
                     <View style={styles.inputGroup}>
@@ -167,6 +179,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        overflow: 'hidden',
+        borderTopColor: '#FF7200',
+        borderTopWidth: 50
+    },
+    headerImg: {
+        flex: 1,
+        width: window.width,
+        height: 100,
+        marginBottom: 20,
+        resizeMode: 'stretch'
     },
     inputGroup: {
         marginBottom: 10
@@ -192,11 +214,11 @@ const styles = StyleSheet.create({
     },
     cbGroup: {
         marginRight: 25,
-        marginVertical: 5,
+        marginVertical: 5
     },
     labelCheckbox: {
         color: COLORS.clrBlack,
-        fontSize: 15,
+        fontSize: 15
     },
     btnOrange: {
         paddingVertical: 10,
@@ -206,14 +228,13 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         alignSelf: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.clrOrange,
+        backgroundColor: COLORS.clrOrange
     },
     txtWhite: {
         color: COLORS.clrWhite,
         fontWeight: '700',
         fontSize: 20
-    },
-
+    }
 });
 
-export default SearchForCourses;
+export default SearchForCourses

@@ -12,18 +12,19 @@ const Home = (props) => {
                     TÌM HIỂU THÔNG TIN DU HỌC
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={props.onFollowStudentPress}>
+            <Text style={[styles.txtButton, styles.txtWhite]}>Phiên bản Beta</Text>
+            {/*<TouchableOpacity style={styles.button} onPress={props.onFollowStudentPress}>
                 <Text style={[styles.txtButton, styles.txtGreen]}>
                     THEO DÕI HỌC SINH DU HỌC
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
         </Image>
     );
 };
 
 Home.propTypes = {
     onStudyAbroadInfoPress: React.PropTypes.func,
-    onFollowStudentPress: React.PropTypes.func,
+    onFollowStudentPress: React.PropTypes.func
 };
 
 const styles = StyleSheet.create({
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: null,
-        height: null,
+        height: null
     },
     img: {
         marginBottom: 45
@@ -50,18 +51,22 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.clrWhite,
         margin: 10,
         borderRadius: 6,
-        alignItems: 'center',
+        alignItems: 'center'
     },
     txtButton: {
         fontWeight: '700',
         fontSize: 18
     },
     txtOrange: {
-        color: COLORS.clrOrange,
+        color: COLORS.clrOrange
     },
     txtGreen: {
-        color: COLORS.clrGreen,
+        color: COLORS.clrGreen
     },
+    txtWhite: {
+        marginTop: 20,
+        color: COLORS.clrWhite
+    }
 });
 
 export default Home;

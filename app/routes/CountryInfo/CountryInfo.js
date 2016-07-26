@@ -7,11 +7,11 @@ import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
-import config from '../../config.js'
+
+import config from '../../config.js';
+import Meteor, { connectMeteor } from 'react-native-meteor';
 
 let width = Dimensions.get('window').width;
-
-import Meteor, { connectMeteor } from 'react-native-meteor';
 
 class CountryInfo extends Component {
     constructor(props) {
@@ -20,22 +20,21 @@ class CountryInfo extends Component {
             collapsed: true,
             countryData : null
         }
-
     }
     componentWillMount(){
         let label = this.props.label;
-        const self = this
+        const self = this;
         Meteor.call('getInfoCountry',label,(e,rs)=>{
             self.setState({
                 countryData : rs
-            })
+            });
             //return rs
-        })
+        });
         //return countryData
     }
     _toggleExpanded = () => {
         this.setState({collapsed: !this.state.collapsed});
-    }
+    };
 
     _renderHeader(section, i, isActive) {
         return (
@@ -64,7 +63,7 @@ class CountryInfo extends Component {
     }
 
     render() {
-        const countryData = this.state.countryData
+        const countryData = this.state.countryData;
         return (
             <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
                 {countryData && <View>
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderTopColor: '#FF7200',
         borderTopWidth: 50,
-        alignItems: 'center',
+        alignItems: 'center'
         //overflow: 'hidden'
     },
     banner: {
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginHorizontal: 0,
         width: width+50,
-        height: width/3,
+        height: width/3
     },
     header: {
         backgroundColor: COLORS.clrBlack,
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
         color: COLORS.clrWhite,
         textAlign: 'center',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '600'
     },
     content: {
         flex: 1,
@@ -116,20 +115,20 @@ const styles = StyleSheet.create({
         height: width/2,
         width: window.width,
         marginHorizontal: 15,
-        resizeMode: 'contain',
+        resizeMode: 'contain'
     },
     activeHeader: {
-        backgroundColor: COLORS.clrGray,
+        backgroundColor: COLORS.clrGray
     },
     inactiveHeader: {
-        backgroundColor: COLORS.clrBlack,
+        backgroundColor: COLORS.clrBlack
     },
     activeText: {
-        color: COLORS.clrBlack,
+        color: COLORS.clrBlack
     },
     inactiveText: {
-        color: COLORS.clrWhite,
-    },
+        color: COLORS.clrWhite
+    }
 });
 
 export default CountryInfo;

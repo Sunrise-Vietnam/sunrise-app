@@ -31,7 +31,7 @@ class DirectOne extends React.Component {
         const { selectedTab } = this.state;
         const sceneStyle = [];
         if (initialRoute.showNavigationBar !== false) {
-            sceneStyle.push({paddingBottom: 40});
+            sceneStyle.push({paddingBottom: 0});
         }
         return (
             <TabNavigator.Item
@@ -39,11 +39,11 @@ class DirectOne extends React.Component {
                 title={title}
                 renderIcon={() => <Image style={styles.icon} source={Icon} />}
                 renderSelectedIcon={() => (
-          <Image
-            style={[styles.icon, styles.iconSelected]}
-            source={Icon}
-          />
-        )}
+                  <Image
+                    style={[styles.icon, styles.iconSelected]}
+                    source={Icon}
+                  />
+                )}
                 onPress={() => this.setState({ selectedTab: title })}
                 >
                 <ExNavigator
@@ -59,8 +59,8 @@ class DirectOne extends React.Component {
     render() {
         return (
             <TabNavigator>
-                {this.renderTabItem('StudyAbroadInfo', Routes.getStudyAbroadInfoRoute(), StudyAbroadIcon)}
-                {this.renderTabItem('FollowStudent', Routes.getFollowStudentRoute(), FollowStudentIcon)}
+                {this.renderTabItem('StudyAbroadInfo', Routes.getStudyAbroadInfoRoute())}
+                {this.renderTabItem('FollowStudent', Routes.getFollowStudentRoute())}
             </TabNavigator>
         );
     }

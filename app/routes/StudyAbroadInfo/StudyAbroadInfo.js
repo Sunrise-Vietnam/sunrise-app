@@ -6,12 +6,7 @@ class StudyAbroadInfo extends Component {
     constructor(props) {
         super(props);
     }
-    closeControlPanel = () => {
-        this._drawer.close()
-    };
-    openControlPanel = () => {
-        this._drawer.open()
-    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -39,12 +34,12 @@ class StudyAbroadInfo extends Component {
                         DU HỌC SINH CHIA SẺ
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.props.onStudyEnglishPress}>
+                {/*<TouchableOpacity style={styles.button} onPress={this.props.onStudyEnglishPress}>
                     <Image style={styles.imgLogo} source={require('./book.png')}/>
                     <Text style={styles.txtBlack}>
                         HỌC TIẾNG ANH
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>*/}
                 <TouchableOpacity style={styles.button} onPress={this.props.onAboutPress}>
                     <Image style={styles.imgLogo} source={require('./location.png')}/>
                     <Text style={styles.txtBlack}>
@@ -54,7 +49,7 @@ class StudyAbroadInfo extends Component {
             </View>
         )
     }
-};
+}
 
 StudyAbroadInfo.propTypes = {
     onSearchForCoursesPress: React.PropTypes.func,
@@ -62,7 +57,7 @@ StudyAbroadInfo.propTypes = {
     onCountriesPress: React.PropTypes.func,
     onSharePress: React.PropTypes.func,
     onStudyEnglishPress: React.PropTypes.func,
-    onAboutPress: React.PropTypes.func,
+    onAboutPress: React.PropTypes.func
 };
 
 const styles = StyleSheet.create({
@@ -71,7 +66,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#FF7200',
         borderTopWidth: 50,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     button: {
         flexDirection: 'row',
@@ -84,7 +79,7 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 2,
-        shadowOpacity: 1.0,
+        shadowOpacity: 1.0
     },
     imgLogo: {
         flex: 1,

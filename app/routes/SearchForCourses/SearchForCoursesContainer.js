@@ -2,10 +2,10 @@ import React from 'react';
 import SearchForCourses from './SearchForCourses';
 import Routes from '../';
 
-const SearchForCoursesContainer = (props) => {
+const SearchForCoursesContainer = () => {
     return (
         <SearchForCourses/>
     );
 };
 
-export default SearchForCoursesContainer;
+export default SearchForCoursesContainer

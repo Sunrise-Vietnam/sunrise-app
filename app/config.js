@@ -1,4 +1,3 @@
-
 // If you're running on a device or in the Android simulator be sure to change
 let METEOR_URL = 'ws://192.168.57.1:3000/websocket';
 let METEOR_SERVER = 'http://192.168.57.1:3000'

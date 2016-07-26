@@ -3,7 +3,6 @@ import Countries from './Countries.js';
 import Routes from '../';
 
 const onCountryInfoPress = (navigator, label) => {
-    console.log('navigator', navigator, label)
     return navigator.push(Routes.getCountryInfoRoute(label));
 };
 
@@ -16,7 +15,7 @@ const CountriesContainer = (props) => {
 };
 
 CountriesContainer.propTypes = {
-    navigator: React.PropTypes.object,
+    navigator: React.PropTypes.object
 };
 
 export default CountriesContainer;
