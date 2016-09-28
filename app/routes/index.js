@@ -6,10 +6,13 @@ import DirectTwo from '../layouts/DirectTwo';
 import About from './About';
 import Countries from './Countries';
 import CountryInfo from './CountryInfo';
+import CourseRegister from './CourseRegister';
 import Events from './Events';
 import FollowStudent from './FollowStudent';
 import ForCustomers from './ForCustomers';
 import LogIn from './LogIn';
+import SchoolInfo from './SchoolInfo';
+import Schools from './Schools';
 import SearchForCourses from './SearchForCourses';
 import Share from './Share';
 import StudentInfo from './StudentInfo';
@@ -19,6 +22,7 @@ import StudyProgress from './StudyProgress';
 import StudySchedule from './StudySchedule';
 import StudyTips from './StudyTips';
 import TestSchedule from './TestSchedule';
+import TipDetail from './TipDetail';
 
 const Routes = {
     getHomeRoute() {
@@ -51,11 +55,11 @@ const Routes = {
             getTitle() {
                 return 'THÔNG TIN DU HỌC';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                             <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                         </TouchableOpacity>
-            },
+            },*/
         };
     },
     getSearchForCoursesRoute() {
@@ -69,11 +73,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getEventsRoute() {
@@ -87,11 +91,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getCountriesRoute() {
@@ -105,17 +109,17 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
-    getCountryInfoRoute(label) {
+    getCountryInfoRoute(key) {
         return {
             renderScene(navigator) {
-                return <CountryInfo navigator={navigator} label={label}/>;
+                return <CountryInfo navigator={navigator} parentKey={key}/>;
             },
             getTitle() {
                 return 'THĂM QUAN TRƯỜNG';
@@ -123,11 +127,47 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
+            },*/
+        };
+    },
+    getSchoolsRoute(key) {
+        return {
+            renderScene(navigator) {
+                return <Schools navigator={navigator}  parentKey={key} />;
             },
+            getTitle() {
+                return 'THĂM QUAN TRƯỜNG';
+            },
+            getBackButtonTitle() {
+                return '';
+            },
+            /*renderRightButton() {
+             return  <TouchableOpacity>
+             <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
+             </TouchableOpacity>
+             },*/
+        };
+    },
+    getSchoolInfoRoute(key) {
+        return {
+            renderScene(navigator) {
+                return <SchoolInfo navigator={navigator} parentKey={key}/>;
+            },
+            getTitle() {
+                return '';
+            },
+            getBackButtonTitle() {
+                return '';
+            },
+            /*renderRightButton() {
+             return  <TouchableOpacity>
+             <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
+             </TouchableOpacity>
+             },*/
         };
     },
     getShareRoute() {
@@ -141,11 +181,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getStudyEnglishRoute() {
@@ -159,11 +199,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getStudyTipsRoute() {
@@ -177,11 +217,29 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
+            },*/
+        };
+    },
+    getTipDetailRoute() {
+        return {
+            renderScene(navigator) {
+                return <TipDetail navigator={navigator} />;
             },
+            getTitle() {
+                return '';
+            },
+            getBackButtonTitle() {
+                return '';
+            },
+            /*renderRightButton() {
+                return  <TouchableOpacity>
+                    <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
+                </TouchableOpacity>
+            },*/
         };
     },
     getTestScheduleRoute() {
@@ -195,11 +253,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getStudyScheduleRoute() {
@@ -213,10 +271,23 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
+            },*/
+        };
+    },
+    getCourseRegisterRoute() {
+        return {
+            renderScene(navigator) {
+                return <CourseRegister navigator={navigator} />;
+            },
+            getTitle() {
+                return 'ĐĂNG KÝ KHOÁ HỌC';
+            },
+            getBackButtonTitle() {
+                return '';
             },
         };
     },
@@ -231,11 +302,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getFollowStudentRoute() {
@@ -249,11 +320,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getLogInRoute() {
@@ -267,11 +338,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getStudentInfoRoute() {
@@ -298,11 +369,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
     getForCustomersRoute() {
@@ -316,11 +387,11 @@ const Routes = {
             getBackButtonTitle() {
                 return '';
             },
-            renderRightButton() {
+            /*renderRightButton() {
                 return  <TouchableOpacity>
                     <Image source={require('./search.png')} style={{width: 22,height: 22,marginTop: 14,marginRight: 8,}}/>
                 </TouchableOpacity>
-            },
+            },*/
         };
     },
 };

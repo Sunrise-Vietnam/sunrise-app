@@ -7,6 +7,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import config from '../../config.js';
 import Meteor, { connectMeteor } from 'react-native-meteor';
 import Loading from '../../components/Loading';
+
 class Events extends Component {
     constructor(props) {
         super(props);
@@ -17,8 +18,8 @@ class Events extends Component {
     }
     componentWillMount(){
         const self = this;
-        Meteor.call('getEventsInfo', (e,rs) => {
-            //console.log(rs)
+        Meteor.call('getEventsInfo', (e, rs) => {
+            console.log(rs)
             self.setState({
                 eventsData : rs
             });
@@ -55,7 +56,7 @@ class Events extends Component {
 								</View>
 							</View>
 						</TouchableHighlight>
-					)}
+					    )}
                         renderHiddenRow={ (data, secId, rowId, rowMap) => (
 						<View style={styles.rowBack}>
 							<TouchableOpacity style={[styles.backLeftBtn, styles.backLeftBtnLeft]} onPress={ _ => this.deleteRow(secId, rowId, rowMap) }>
@@ -65,7 +66,7 @@ class Events extends Component {
 								<Image style={[styles.backImg, {width: 20, height: 20}]} source={require('./check.png')}/>
 							</TouchableOpacity>
 						</View>
-					)}
+					    )}
                         leftOpenValue={0}
                         rightOpenValue={0}
                         disableLeftSwipe={true}

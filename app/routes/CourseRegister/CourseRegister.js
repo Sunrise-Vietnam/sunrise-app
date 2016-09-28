@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { COLORS } from '../../styles/index';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+
 import DatePicker from 'react-native-datepicker';
+
 import CheckBox from 'react-native-checkbox';
+
 import Meteor, { connectMeteor } from 'react-native-meteor';
+
 import _ from 'lodash'
-class SearchForCourses extends Component {
+
+let width = Dimensions.get('window').width;
+
+class CourseRegister extends Component {
     constructor(props){
         super(props);
         let form = {
@@ -17,14 +24,12 @@ class SearchForCourses extends Component {
             hoctruong : null,
             sodienthoai : null,
             email : null,
-            diem_ielts: null,
-            //note: null,
             ielts: false,
             toefl: false,
             sat: false,
-            hoten_me: null,
-            sodienthoai_me: null,
-            email_me: null,
+            toeic: false,
+            childrenEng: false,
+            commonEng: false,
             source: '"zKip6ZGQ4oeAvozAX"'
         };
         this.state = {
@@ -42,11 +47,15 @@ class SearchForCourses extends Component {
     RegisterForm(){
         let form = this.state.form,
             note = 'Nhu cầu học: ';
-        if(form.ielts) note += 'ielts,'
-        if(form.toefl) note += 'toefl,'
-        if(form.sat) note += 'sat'
-        if(note !== 'Nhu cầu học : '){
-            form = _.extend(_.omit(form,['ielts','toefl','sat']), { note : note})
+        console.log(form);
+        if(form.ielts) note += 'ielts, '
+        if(form.toefl) note += 'toefl, '
+        if(form.sat) note += 'sat, '
+        if(form.toeic) note += 'toeic, '
+        if(form.childrenEng) note += 'childrenEng, '
+        if(form.commonEng) note += 'commonEng, '
+        if(note !== 'Nhu cầu học: '){
+            form = _.extend(_.omit(form,['ielts','toefl','sat','toeic','childrenEng','commonEng']), { note : note})
         }
         Meteor.call('insertRegister', form, (e, r) => {
             console.info(e, r)
@@ -56,7 +65,6 @@ class SearchForCourses extends Component {
         return (
             <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
                 <View>
-                    <Image style={styles.headerImg} source={require('./search-for-courses.png')}/>
                     <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Họ và tên</Text>
                         <TextInput
@@ -106,60 +114,63 @@ class SearchForCourses extends Component {
                             />
                     </View>
                     <View style={styles.inputGroup}>
-                        <Text style={styles.txtLabel}>Điểm IELTS/TOEFL</Text>
-                        <TextInput
-                            style={styles.bgInput} value={this.state.form.diem_ielts} onChangeText={(e)=> this.setFormFieldValue('diem_ielts', e)}
-                            />
-                    </View>
-                    <View style={styles.inputGroup}>
                         <Text style={styles.txtLabel}>Có nhu cầu luyện</Text>
-                        <View style={{flexDirection: 'row'}}>
-                        <View style={styles.cbGroup}>
-                            <CheckBox
-                                label='IELTS'
-                                labelBefore={true}
-                                labelStyle={styles.labelCheckbox}
-                                checked={this.state.form.ielts}
-                                onChange={(checked) => this.setFormFieldValue('ielts', checked)}
-                            />
-                        </View>
-                        <View style={styles.cbGroup}>
-                            <CheckBox
-                                label='TOEFL'
-                                labelBefore={true}
-                                labelStyle={styles.labelCheckbox}
-                                checked={this.state.form.toefl}
-                                onChange={(checked) => this.setFormFieldValue('toefl', checked)}
+                        <View style={{width: width, paddingHorizontal: 3, flexWrap: 'wrap', flexDirection: 'row'}}>
+                            <View style={styles.cbGroup}>
+                                <CheckBox
+                                    label='IELTS'
+                                    labelBefore={true}
+                                    labelStyle={styles.labelCheckbox}
+                                    checked={this.state.form.ielts}
+                                    onChange={(checked) => this.setFormFieldValue('ielts', checked)}
                                 />
+                            </View>
+                            <View style={styles.cbGroup}>
+                                <CheckBox
+                                    label='TOEFL'
+                                    labelBefore={true}
+                                    labelStyle={styles.labelCheckbox}
+                                    checked={this.state.form.toefl}
+                                    onChange={(checked) => this.setFormFieldValue('toefl', checked)}
+                                    />
+                            </View>
+                            <View style={styles.cbGroup}>
+                                <CheckBox
+                                    label='SAT'
+                                    labelBefore={true}
+                                    labelStyle={styles.labelCheckbox}
+                                    checked={this.state.form.sat}
+                                    onChange={(checked) => this.setFormFieldValue('sat', checked)}
+                                    />
+                            </View>
+                            <View style={styles.cbGroup}>
+                                <CheckBox
+                                    label='TOEIC'
+                                    labelBefore={true}
+                                    labelStyle={styles.labelCheckbox}
+                                    checked={this.state.form.toeic}
+                                    onChange={(checked) => this.setFormFieldValue('toeic', checked)}
+                                    />
+                            </View>
+                            <View style={styles.cbGroup}>
+                                <CheckBox
+                                    label='TIẾNG ANH TRẺ EM'
+                                    labelBefore={true}
+                                    labelStyle={styles.labelCheckbox}
+                                    checked={this.state.form.childrenEng}
+                                    onChange={(checked) => this.setFormFieldValue('childrenEng', checked)}
+                                    />
+                            </View>
+                            <View style={styles.cbGroup}>
+                                <CheckBox
+                                    label='TIẾNG ANH GIAO TIẾP'
+                                    labelBefore={true}
+                                    labelStyle={styles.labelCheckbox}
+                                    checked={this.state.form.commonEng}
+                                    onChange={(checked) => this.setFormFieldValue('commonEng', checked)}
+                                    />
+                            </View>
                         </View>
-                        <View style={styles.cbGroup}>
-                            <CheckBox
-                                label='SAT'
-                                labelBefore={true}
-                                labelStyle={styles.labelCheckbox}
-                                checked={this.state.form.sat}
-                                onChange={(checked) => this.setFormFieldValue('sat', checked)}
-                                />
-                        </View>
-                        </View>
-                    </View>
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.txtLabel}>Phụ huynh</Text>
-                        <TextInput
-                            style={styles.bgInput} value={this.state.form.hoten_me} onChangeText={(e)=> this.setFormFieldValue('hoten_me', e)}
-                            />
-                    </View>
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.txtLabel}>Số điện thoại</Text>
-                        <TextInput
-                            style={styles.bgInput} value={this.state.form.sodienthoai_me} onChangeText={(e)=> this.setFormFieldValue('sodienthoai_me', e)}
-                            />
-                    </View>
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.txtLabel}>Email</Text>
-                        <TextInput
-                            style={styles.bgInput}  value={this.state.form.email_me} onChangeText={(e)=> this.setFormFieldValue('email_me', e)}
-                            />
                     </View>
                     <View style={styles.inputGroup}>
                         <TouchableOpacity style={styles.btnOrange} onPress={this.RegisterForm}>
@@ -176,19 +187,11 @@ class SearchForCourses extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
         borderTopColor: '#FF7200',
         borderTopWidth: 50
-    },
-    headerImg: {
-        flex: 1,
-        width: window.width,
-        height: 100,
-        marginBottom: 20,
-        resizeMode: 'stretch'
     },
     inputGroup: {
         marginBottom: 10
@@ -213,18 +216,16 @@ const styles = StyleSheet.create({
         borderWidth: 0
     },
     cbGroup: {
-        marginRight: 25,
+        marginRight: 7,
         marginVertical: 5
     },
     labelCheckbox: {
         color: COLORS.clrBlack,
-        fontSize: 15
+        fontSize: 14
     },
     btnOrange: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        width: 150,
-        margin: 5,
+        paddingVertical: 7,
+        paddingHorizontal: 30,
         borderRadius: 4,
         alignSelf: 'center',
         alignItems: 'center',
@@ -233,8 +234,8 @@ const styles = StyleSheet.create({
     txtWhite: {
         color: COLORS.clrWhite,
         fontWeight: '700',
-        fontSize: 20
+        fontSize: 17
     }
 });
 
-export default SearchForCourses
+export default CourseRegister

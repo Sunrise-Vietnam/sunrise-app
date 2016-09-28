@@ -2,14 +2,14 @@ import React from 'react';
 import Countries from './Countries.js';
 import Routes from '../';
 
-const onCountryInfoPress = (navigator, label) => {
-    return navigator.push(Routes.getCountryInfoRoute(label));
+const onCountryInfoPress = (navigator, key) => {
+    return navigator.push(Routes.getCountryInfoRoute(key));
 };
 
 const CountriesContainer = (props) => {
     return (
         <Countries
-            onCountryInfoPress ={(label) => onCountryInfoPress(props.navigator, label)}
+            onCountryInfoPress ={(key) => onCountryInfoPress(props.navigator, key)}
         />
     );
 };

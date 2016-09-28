@@ -2,11 +2,20 @@ import React from 'react';
 import CountryInfo from './CountryInfo';
 import Routes from '../';
 
+const onSchoolsPress = (navigator, key) => {
+    return navigator.push(Routes.getSchoolsRoute(key));
+};
+
 const CountryInfoContainer = (props) => {
-    //console.log(props)
     return (
-        <CountryInfo {...props}/>
+        <CountryInfo
+            {...props}
+            onSchoolsPress={(key) => onSchoolsPress(props.navigator, key)}/>
     );
+};
+
+CountryInfoContainer.propTypes = {
+    navigator: React.PropTypes.object
 };
 
 export default CountryInfoContainer;

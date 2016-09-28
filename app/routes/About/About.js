@@ -4,7 +4,7 @@ import { COLORS } from '../../styles/index';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
-const About = (props) => {
+const About = () => {
     return (
         <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
             <View>
@@ -85,22 +85,19 @@ const About = (props) => {
                 </Image>
                 <Image style={styles.bgGray} source={require('./bg-footer.png')}>
                     <View style={styles.rowInfo}>
-                        <Image/>
-                        <Text style={[styles.txtWhite, styles.txtBold, {flex: 1}]}>Website: </Text>
+                        <Text style={[styles.txtWhite, styles.txtBold, styles.txtRight, {flex: 1}]}>Website: </Text>
                         <Text style={[styles.txtWhite, {flex: 3}]}>www.sunrisevietnam.com</Text>
                     </View>
                     <View style={styles.rowInfo}>
-                        <Text style={{flex: 1}}></Text>
+                        <Text style={[styles.txtRight, {flex: 1}]}></Text>
                         <Text style={[styles.txtWhite, {flex: 3}]}>www.sunrise.edu.vn</Text>
                     </View>
                     <View style={styles.rowInfo}>
-                        <Image/>
-                        <Text style={[styles.txtWhite, styles.txtBold, {flex: 1}]}>Facebook: </Text>
+                        <Text style={[styles.txtWhite, styles.txtBold, styles.txtRight, {flex: 1}]}>Facebook: </Text>
                         <Text style={[styles.txtWhite, {flex: 3}]}>www.facebook.com/thaiduong.vietnam</Text>
                     </View>
                     <View style={styles.rowInfo}>
-                        <Image/>
-                        <Text style={[styles.txtWhite, styles.txtBold, {flex: 1}]}>Email: </Text>
+                        <Text style={[styles.txtWhite, styles.txtBold, styles.txtRight, {flex: 1}]}>Email: </Text>
                         <Text style={[styles.txtWhite, {flex: 3}]}>info@sunrisevietnam.com</Text>
                     </View>
                 </Image>
@@ -113,15 +110,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderTopColor: '#FF7200',
-        borderTopWidth: 50,
+        borderTopWidth: 50
     },
     imgContain: {
         resizeMode: 'stretch',
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
         height: null,
         width: null,
-        marginHorizontal: 10,
-
+        marginHorizontal: 10
     },
     mainContent: {
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
@@ -130,41 +126,45 @@ const styles = StyleSheet.create({
     txtRed: {
         color: COLORS.clrRed,
         fontSize: 17,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     txtOrange: {
         color: COLORS.clrOrange,
         fontSize: 15,
         marginTop: 15,
         marginLeft: 25,
-        marginBottom: 3,
+        marginBottom: 3
     },
     rowInfo: {
         flexDirection: 'row',
-        marginBottom: 2,
+        marginBottom: 2
     },
     imgIcon: {
         marginRight: 10,
         width: 10,
         height: 10,
         resizeMode: 'contain',
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     txtBold: {
         fontWeight: '700'
     },
     txtBlack: {
         color: COLORS.clrBlack,
-        fontSize: 13,
+        fontSize: 13
     },
     bgGray: {
         resizeMode: 'cover',
         height: null,
         width: null,
-        padding: 10,
+        padding: 10
     },
     txtWhite: {
-        color: COLORS.clrWhite,
+        color: COLORS.clrWhite
+    },
+    txtRight: {
+        textAlign: 'right',
+        marginRight: 10
     }
 });
 

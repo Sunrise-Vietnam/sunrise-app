@@ -6,10 +6,10 @@ import Loading from './components/Loading';
 import config from './config';
 
 Meteor.connect(config.METEOR_URL);
-
+console.log(config.METEOR_URL, process.env.NODE_ENV);
 const SRVNApp = (props) => {
 	const { status} = props;
-	console.log(props);
+	//console.dir(status);
 	if (status.connected === false) {
 		return <Loading />;
 	} else {

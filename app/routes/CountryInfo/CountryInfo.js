@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight, Dimensions, TouchableOpacity, ListView } from 'react-native';
 import { COLORS } from '../../styles';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-
-import * as Animatable from 'react-native-animatable';
-import Collapsible from 'react-native-collapsible';
-import Accordion from 'react-native-collapsible/Accordion';
 
 import config from '../../config.js';
 import Meteor, { connectMeteor } from 'react-native-meteor';
@@ -16,69 +12,46 @@ let width = Dimensions.get('window').width;
 class CountryInfo extends Component {
     constructor(props) {
         super(props);
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            collapsed: true,
             countryData : null
-        }
+        };
     }
+
     componentWillMount(){
-        let label = this.props.label;
+        const country = this.props.parentKey;
         const self = this;
-        Meteor.call('getInfoCountry',label,(e,rs)=>{
+        Meteor.call('getCountryData', country.key, (e, rs) => {
             self.setState({
                 countryData : rs
             });
-            //return rs
         });
-        //return countryData
-    }
-    _toggleExpanded = () => {
-        this.setState({collapsed: !this.state.collapsed});
-    };
-
-    _renderHeader(section, i, isActive) {
-        return (
-            <Animatable.View duration={300}
-                             style={[styles.header, isActive ? styles.activeHeader : styles.inactiveHeader]}
-                             transition="backgroundColor">
-                <Text
-                    style={[styles.headerText, isActive ? styles.activeText : styles.inactiveText]}>{section.title}</Text>
-            </Animatable.View>
-        );
-    }
-
-    _renderContent(section, i, isActive) {
-        return (
-            <Animatable.View duration={300}
-                             style={styles.content}
-                             transition="backgroundColor">
-                <Animatable.Image
-                    duration={300}
-                    easing="ease-out"
-                    animation={isActive ? 'zoomIn' : false}
-                    style={styles.contentImg}
-                    source={{uri: config.METEOR_SERVER + section.content}}/>
-            </Animatable.View>
-        );
     }
 
     render() {
         const countryData = this.state.countryData;
+        const country = this.props.parentKey;
         return (
-            <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
-                {countryData && <View>
-                    <Image style={styles.banner} source={{uri: config.METEOR_SERVER + countryData.imgHeader }} />
-                    <Accordion
-                        sections={countryData.countryContent}
-                        renderHeader={this._renderHeader}
-                        renderContent={this._renderContent}
-                        duration={400}
-                        />
-                </View>}
+            countryData && <ParallaxScrollView style={styles.container} parallaxHeaderHeight={ 0 }>
+                <View>
+                    <Image style={styles.banner} source={{uri: country.banner}} />
+                    <ListView
+                        dataSource={this.ds.cloneWithRows(countryData)}
+                        renderRow={rowData => (
+                            <TouchableOpacity style={styles.row} onPress={() => {this.props.onSchoolsPress(rowData.key)}}>
+                                <Text style={styles.txtName}>{rowData.name}</Text>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>
             </ParallaxScrollView>
         );
     }
 }
+
+CountryInfo.propTypes = {
+    onSchoolsPress: React.PropTypes.func
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -95,39 +68,17 @@ const styles = StyleSheet.create({
         width: width+50,
         height: width/3
     },
-    header: {
+    row: {
         backgroundColor: COLORS.clrBlack,
         padding: 10,
         borderTopWidth: 10,
         borderTopColor: 'white'
     },
-    headerText: {
+    txtName: {
         color: COLORS.clrWhite,
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '600'
-    },
-    content: {
-        flex: 1,
-        padding: 20
-    },
-    contentImg: {
-        height: width/2,
-        width: window.width,
-        marginHorizontal: 15,
-        resizeMode: 'contain'
-    },
-    activeHeader: {
-        backgroundColor: COLORS.clrGray
-    },
-    inactiveHeader: {
-        backgroundColor: COLORS.clrBlack
-    },
-    activeText: {
-        color: COLORS.clrBlack
-    },
-    inactiveText: {
-        color: COLORS.clrWhite
     }
 });
 
